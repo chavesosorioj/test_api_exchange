@@ -1,8 +1,8 @@
 
 properties([
     parameters([
-        string(name: "dir", defaultValue: "", description: "")
-    ]}
+        string(name: "dir", defaultValue: "/Users", description: "")
+    ])
 ])
 
 pipeline {
