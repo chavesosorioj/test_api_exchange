@@ -1,0 +1,18 @@
+
+properties([
+    parameters([
+        string(name: "dir", defaultValue: "", description: "")
+    ]}
+])
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Test api exchange') {
+            steps {
+               sh "ls '${params.dir}'"
+            }
+        }
+    }
+}

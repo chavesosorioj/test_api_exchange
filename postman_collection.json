@@ -1,0 +1,864 @@
+{
+	"info": {
+		"_postman_id": "6982a4bc-b020-4dc0-ba06-1fcb826dae91",
+		"name": "test api exchange automated",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9753674"
+	},
+	"item": [
+		{
+			"name": "login stgx 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"pm.globals.set('bearer', response.access_token);",
+							"",
+							"pm.test('status test 200', ()=>{",
+							"    pm.response.to.have.status(200)",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 1000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});",
+							"",
+							"pm.test('response must have a body', ()=>{",
+							"    pm.response.to.be.withBody",
+							"    pm.response.to.be.json",
+							"});",
+							"",
+							"pm.test(\"Response contains Bearer\", ()=>{",
+							"    pm.expect(response.token_type).to.eql(\"bearer\");",
+							"});",
+							"",
+							"pm.test(\"Response contains redirect to homepage\", ()=>{",
+							"    pm.expect(response.redirectUrl).to.eql(\"/home/\");",
+							"});",
+							"",
+							"pm.test(\"Data type bearer is a string\", ()=>{",
+							"    console.log(response.redirectUrl)",
+							"    pm.expect(response.token_type).to.be.a(\"string\")",
+							"",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "X-CSRF-Token",
+						"value": " ",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\":\"Juucha\",\n    \"password\":\"Anypointjucha1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://stgx.anypoint.mulesoft.com/accounts/login",
+					"protocol": "https",
+					"host": [
+						"stgx",
+						"anypoint",
+						"mulesoft",
+						"com"
+					],
+					"path": [
+						"accounts",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list APIs 2",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"pm.test('status test 200', ()=>{",
+							"    pm.response.to.have.status(200)",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 1000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});",
+							"",
+							"pm.test(\"list is not empty\", ()=>{",
+							"    pm.expect(response).to.not.be.empty",
+							"});",
+							"",
+							"response.forEach(function(api){",
+							"    var i=0",
+							"    pm.test(\"List contains HTTP APIs\", ()=>{    ",
+							"        pm.expect(response[i].type).to.be.eql(\"http-api\")",
+							"    });",
+							"    i++",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearer}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://stgx.anypoint.mulesoft.com/exchange/api/v2/assets?search=api&types=api-group&types=connector&types=custom&types=data-weave-library&types=evented-api&types=example&types=extension&types=http-api&types=policy&types=raml-fragment&types=rest-api&types=ruleset&types=soap-api&types=template&status=development&status=published&status=deprecated&domain=&&masterOrganizationId=fb9adb70-6649-43e4-8954-59f69b7577b8&offset=0&limit=20&sharedWithMe=",
+					"protocol": "https",
+					"host": [
+						"stgx",
+						"anypoint",
+						"mulesoft",
+						"com"
+					],
+					"path": [
+						"exchange",
+						"api",
+						"v2",
+						"assets"
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "api"
+						},
+						{
+							"key": "types",
+							"value": "api-group"
+						},
+						{
+							"key": "types",
+							"value": "connector"
+						},
+						{
+							"key": "types",
+							"value": "custom"
+						},
+						{
+							"key": "types",
+							"value": "data-weave-library"
+						},
+						{
+							"key": "types",
+							"value": "evented-api"
+						},
+						{
+							"key": "types",
+							"value": "example"
+						},
+						{
+							"key": "types",
+							"value": "extension"
+						},
+						{
+							"key": "types",
+							"value": "http-api"
+						},
+						{
+							"key": "types",
+							"value": "policy"
+						},
+						{
+							"key": "types",
+							"value": "raml-fragment"
+						},
+						{
+							"key": "types",
+							"value": "rest-api"
+						},
+						{
+							"key": "types",
+							"value": "ruleset"
+						},
+						{
+							"key": "types",
+							"value": "soap-api"
+						},
+						{
+							"key": "types",
+							"value": "template"
+						},
+						{
+							"key": "status",
+							"value": "development"
+						},
+						{
+							"key": "status",
+							"value": "published"
+						},
+						{
+							"key": "status",
+							"value": "deprecated"
+						},
+						{
+							"key": "domain",
+							"value": ""
+						},
+						{
+							"key": null,
+							"value": null
+						},
+						{
+							"key": "masterOrganizationId",
+							"value": "fb9adb70-6649-43e4-8954-59f69b7577b8"
+						},
+						{
+							"key": "offset",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "20"
+						},
+						{
+							"key": "sharedWithMe",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create new API 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"console.log(response)",
+							"//var link = response.publicationStatusLink.replace(\"http://\",)",
+							"//pm.globals.set(\"publicationUrl\", response.publicationStatusLink);",
+							"",
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 1000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});",
+							"",
+							"pm.test(\"Response is not empty\", ()=>{",
+							"    pm.expect(response).to.not.be.empty",
+							"});",
+							"",
+							"//pm.sendRequest({{publicationUrl}}, function (err, response) {",
+							"//    console.log(response.json());",
+							"//});",
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearer}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "{{name-api}}",
+							"type": "text"
+						},
+						{
+							"key": "type",
+							"value": "http-api",
+							"type": "text"
+						},
+						{
+							"key": "status",
+							"value": "published",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "properties.apiVersion",
+							"value": "v1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://stgx.anypoint.mulesoft.com/exchange/api/v2/organizations/fb9adb70-6649-43e4-8954-59f69b7577b8/assets/fb9adb70-6649-43e4-8954-59f69b7577b8/{{name-api}}/1.0.0",
+					"protocol": "https",
+					"host": [
+						"stgx",
+						"anypoint",
+						"mulesoft",
+						"com"
+					],
+					"path": [
+						"exchange",
+						"api",
+						"v2",
+						"organizations",
+						"fb9adb70-6649-43e4-8954-59f69b7577b8",
+						"assets",
+						"fb9adb70-6649-43e4-8954-59f69b7577b8",
+						"{{name-api}}",
+						"1.0.0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "publication status link",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json()",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response is not empty\", ()=>{",
+							"    pm.expect(response).to.not.be.empty",
+							"});",
+							"",
+							"pm.test(\"API status is completed\", ()=>{",
+							"    pm.expect(response.status).to.eql(\"completed\");",
+							"});",
+							"",
+							"pm.test(\"API assetType is http-api\", ()=>{",
+							"    pm.expect(response.assetType).to.eql(\"http-api\");",
+							"});",
+							"",
+							"pm.test(\"API version is 1.0.0\", ()=>{",
+							"    pm.expect(response.asset[\"version\"]).to.eql(\"1.0.0\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearer}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://stgx.anypoint.mulesoft.com/exchange/api/v2/organizations/fb9adb70-6649-43e4-8954-59f69b7577b8/assets/fb9adb70-6649-43e4-8954-59f69b7577b8/test-5/1.0.0/publication/status/d4b5189a-59e9-4290-8a7c-dbf4169cb487",
+					"protocol": "https",
+					"host": [
+						"stgx",
+						"anypoint",
+						"mulesoft",
+						"com"
+					],
+					"path": [
+						"exchange",
+						"api",
+						"v2",
+						"organizations",
+						"fb9adb70-6649-43e4-8954-59f69b7577b8",
+						"assets",
+						"fb9adb70-6649-43e4-8954-59f69b7577b8",
+						"test-5",
+						"1.0.0",
+						"publication",
+						"status",
+						"d4b5189a-59e9-4290-8a7c-dbf4169cb487"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "lista apis with new API",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"var i=0",
+							"pm.test('Status test 200', ()=>{",
+							"    pm.response.to.have.status(200)",
+							"});",
+							"",
+							"pm.test(\"List is not empty\", ()=>{",
+							"    pm.expect(response).to.not.be.empty",
+							"});",
+							"",
+							"response.forEach(function(api){",
+							"",
+							"    pm.test(\"List contains HTTP APIs\", ()=>{    ",
+							"        pm.expect(response[i].type).to.be.eql(\"http-api\")",
+							"    });",
+							"    i = i+1",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearer}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://stgx.anypoint.mulesoft.com/exchange/api/v2/assets?search=api&types=api-group&types=connector&types=custom&types=data-weave-library&types=evented-api&types=example&types=extension&types=http-api&types=policy&types=raml-fragment&types=rest-api&types=ruleset&types=soap-api&types=template&status=development&status=published&status=deprecated&domain=&&masterOrganizationId=fb9adb70-6649-43e4-8954-59f69b7577b8&offset=0&limit=20&sharedWithMe=",
+					"protocol": "https",
+					"host": [
+						"stgx",
+						"anypoint",
+						"mulesoft",
+						"com"
+					],
+					"path": [
+						"exchange",
+						"api",
+						"v2",
+						"assets"
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "api"
+						},
+						{
+							"key": "types",
+							"value": "api-group"
+						},
+						{
+							"key": "types",
+							"value": "connector"
+						},
+						{
+							"key": "types",
+							"value": "custom"
+						},
+						{
+							"key": "types",
+							"value": "data-weave-library"
+						},
+						{
+							"key": "types",
+							"value": "evented-api"
+						},
+						{
+							"key": "types",
+							"value": "example"
+						},
+						{
+							"key": "types",
+							"value": "extension"
+						},
+						{
+							"key": "types",
+							"value": "http-api"
+						},
+						{
+							"key": "types",
+							"value": "policy"
+						},
+						{
+							"key": "types",
+							"value": "raml-fragment"
+						},
+						{
+							"key": "types",
+							"value": "rest-api"
+						},
+						{
+							"key": "types",
+							"value": "ruleset"
+						},
+						{
+							"key": "types",
+							"value": "soap-api"
+						},
+						{
+							"key": "types",
+							"value": "template"
+						},
+						{
+							"key": "status",
+							"value": "development"
+						},
+						{
+							"key": "status",
+							"value": "published"
+						},
+						{
+							"key": "status",
+							"value": "deprecated"
+						},
+						{
+							"key": "domain",
+							"value": ""
+						},
+						{
+							"key": null,
+							"value": null
+						},
+						{
+							"key": "masterOrganizationId",
+							"value": "fb9adb70-6649-43e4-8954-59f69b7577b8"
+						},
+						{
+							"key": "offset",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "20"
+						},
+						{
+							"key": "sharedWithMe",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete API 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 2500ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(2500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"setTimeout(function(){}, [2500]);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearer}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-delete-type",
+						"value": "hard-delete",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://stgx.anypoint.mulesoft.com/exchange/api/v2/assets/fb9adb70-6649-43e4-8954-59f69b7577b8/test-5",
+					"protocol": "https",
+					"host": [
+						"stgx",
+						"anypoint",
+						"mulesoft",
+						"com"
+					],
+					"path": [
+						"exchange",
+						"api",
+						"v2",
+						"assets",
+						"fb9adb70-6649-43e4-8954-59f69b7577b8",
+						"test-5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list APIs after delete",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"var i=0",
+							"",
+							"pm.test('status test 200', ()=>{",
+							"    pm.response.to.have.status(200)",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 1000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});",
+							"",
+							"pm.test(\"list is not empty\", ()=>{",
+							"    pm.expect(response).to.not.be.empty",
+							"});",
+							"",
+							"response.forEach(function(api){",
+							"",
+							"    pm.test(\"List contains HTTP APIs\", ()=>{    ",
+							"        pm.expect(response[i].type).to.be.eql(\"http-api\")",
+							"    });",
+							"    pm.test(\"List item is not the API number 5\", ()=>{    ",
+							"        pm.expect(response[i].assetId).not.to.be.eql(pm.globals.get(\"name-api\"));",
+							"        //console.log(response[i].assetId+  \" and \"+ pm.globals.get(\"name-api\"));",
+							"    });",
+							"    i=i+1",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{bearer}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://stgx.anypoint.mulesoft.com/exchange/api/v2/assets?search=api&types=api-group&types=connector&types=custom&types=data-weave-library&types=evented-api&types=example&types=extension&types=http-api&types=policy&types=raml-fragment&types=rest-api&types=ruleset&types=soap-api&types=template&status=development&status=published&status=deprecated&domain=&&masterOrganizationId=fb9adb70-6649-43e4-8954-59f69b7577b8&offset=0&limit=20&sharedWithMe=",
+					"protocol": "https",
+					"host": [
+						"stgx",
+						"anypoint",
+						"mulesoft",
+						"com"
+					],
+					"path": [
+						"exchange",
+						"api",
+						"v2",
+						"assets"
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "api"
+						},
+						{
+							"key": "types",
+							"value": "api-group"
+						},
+						{
+							"key": "types",
+							"value": "connector"
+						},
+						{
+							"key": "types",
+							"value": "custom"
+						},
+						{
+							"key": "types",
+							"value": "data-weave-library"
+						},
+						{
+							"key": "types",
+							"value": "evented-api"
+						},
+						{
+							"key": "types",
+							"value": "example"
+						},
+						{
+							"key": "types",
+							"value": "extension"
+						},
+						{
+							"key": "types",
+							"value": "http-api"
+						},
+						{
+							"key": "types",
+							"value": "policy"
+						},
+						{
+							"key": "types",
+							"value": "raml-fragment"
+						},
+						{
+							"key": "types",
+							"value": "rest-api"
+						},
+						{
+							"key": "types",
+							"value": "ruleset"
+						},
+						{
+							"key": "types",
+							"value": "soap-api"
+						},
+						{
+							"key": "types",
+							"value": "template"
+						},
+						{
+							"key": "status",
+							"value": "development"
+						},
+						{
+							"key": "status",
+							"value": "published"
+						},
+						{
+							"key": "status",
+							"value": "deprecated"
+						},
+						{
+							"key": "domain",
+							"value": ""
+						},
+						{
+							"key": null,
+							"value": null
+						},
+						{
+							"key": "masterOrganizationId",
+							"value": "fb9adb70-6649-43e4-8954-59f69b7577b8"
+						},
+						{
+							"key": "offset",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "20"
+						},
+						{
+							"key": "sharedWithMe",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
