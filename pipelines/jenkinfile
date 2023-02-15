@@ -13,10 +13,6 @@ pipeline {
             steps {
                sh "ls '${params.dir}'"
             }
-        stage('run postman collection') {
-            steps {
-               sh "newman run postman_collection.json"
-            }
         }
     }
 }
