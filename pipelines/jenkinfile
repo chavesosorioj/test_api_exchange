@@ -9,9 +9,13 @@ pipeline {
     agent any
 
     stages {
-        stage('Test api exchange') {
+        stage('dir folder') {
             steps {
                sh "ls '${params.dir}'"
+            }
+        stage('run postman collection') {
+            steps {
+               sh "newman run postman_collection.json"
             }
         }
     }
