@@ -13,6 +13,10 @@ pipeline {
             steps {
                sh "ls '${params.dir}'"
             }
+        stage('run postman collection') {
+            steps{
+                sh "newman run 'https://api.postman.com/collections/9753674-99e69393-3228-4924-a89c-3f0f5cf8259a?access_key=PMAT-01GSDKBDZ51DZ07BM2PG8PKDPK'"
+            }
         }
     }
 }
