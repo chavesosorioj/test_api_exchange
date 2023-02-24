@@ -26,6 +26,7 @@ pipeline {
             steps {
                 sh "pip3 install requests --force-reinstall"
                 sh "pip3 install pytest --force-reinstall"
+                sh "export PATH=$PATH:/Users/juliana.chaves/Library/Python/3.9/bin"
                 sh "pytest -s test_api_one.py"
             }
         }
