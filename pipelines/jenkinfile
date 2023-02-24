@@ -24,9 +24,9 @@ pipeline {
         */
         stage('run python collection') {
             steps {
-                sh "pip3 install requests --force-reinstall"
-                sh "pip3 install pytest --force-reinstall"
                 sh "export PATH=$PATH:/Users/juliana.chaves/Library/Python/3.9/bin"
+                sh "pip3 install pytest --force-reinstall"
+                sh "pip3 install requests --force-reinstall"
                 sh "pytest -s test_api_one.py"
             }
         }
