@@ -25,7 +25,7 @@ pipeline {
         stage('run python collection') {
             steps {
             sh "pip3 install requests --force-reinstall"
-                sh "python3 test_api_one.py"
+                sh "pytest -s test_api_one.py"
             }
         }
     }
