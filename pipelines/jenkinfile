@@ -14,11 +14,13 @@ pipeline {
                sh "ls '${params.dir}'"
             }
         }
+        /*
         stage('run postman collection') {
             steps{
                 sh "/opt/homebrew/Cellar/newman/5.3.2 run 'https://api.postman.com/collections/9753674-99e69393-3228-4924-a89c-3f0f5cf8259a?access_key={ACCESS_KEY}'"
             }
         }
+        */
         stage('run python collection') {
             steps{
                 sh "python3 --version'"
