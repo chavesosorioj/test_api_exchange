@@ -22,8 +22,8 @@ pipeline {
         }
         */
         stage('run python collection') {
-            steps{
-                sh "python3 --version'"
+            steps {
+                sh "python3 --version"
             }
         }
     }
