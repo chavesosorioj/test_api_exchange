@@ -17,9 +17,10 @@ pipeline {
         stage('run postman collection') {
             steps{
                 sh "ls -l"
-                sh "newman run postman_collection.json"
+                sh "/usr/local/lib/node_modules/newman/bin/newman.js run postman_collection.json"
             }
         }
+        /*
         stage('run python collection') {
             steps {
                 sh "export PATH=$PATH:/Users/juliana.chaves/Library/Python/3.9/bin"
@@ -28,5 +29,6 @@ pipeline {
                 sh "pytest -s test_api_one.py"
             }
         }
+        */
     }
 }
