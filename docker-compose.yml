@@ -1,0 +1,10 @@
+version: '2.15.1'
+
+services:
+    web:
+        image: node:lts-alpine3.17
+        container_name: web
+        build:
+            context: ./
+            dockerfile: dockerfile.yml
+

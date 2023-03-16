@@ -17,7 +17,7 @@ pipeline {
         stage('run postman collection') {
             steps{
                 sh "ls -l"
-                sh "/usr/local/lib/node_modules/newman/bin/newman.js run postman_collection.json"
+                sh "/usr/local/lib/node_modules/newman/bin/newman.js run https://api.postman.com/collections/9753674-6982a4bc-b020-4dc0-ba06-1fcb826dae91?access_key=${ACCESS_KEY}"
             }
         }
         /*
