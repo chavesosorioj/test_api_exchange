@@ -1,10 +1,14 @@
 version: '2.15.1'
 
 services:
-    web:
-        image: node:lts-alpine3.17
-        container_name: web
+    postman:
+        container_name: exchangeAPITest
         build:
             context: ./
             dockerfile: dockerfile.yml
+        image: exchange_api_test
+        command:
+            run postman_collection.json
+        volumes:
+            - ./:/etc/newman
 
