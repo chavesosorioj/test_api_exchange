@@ -1,18 +1,9 @@
-# image
-FROM node:lts-alpine3.17
+#image
+FROM node:alpine
+RUN npm install -g newman newman-reporter-htmlextra
+WORKDIR /etc/newman
 
-WORKDIR /newman
-
-COPY postman_collection.json ./
-
-RUN echo hello
-RUN npm install -g newman newman-reporter-html
-# Copy the rest of the local directory into the image
-COPY . .
-
-# Start the application
-CMD ["newman", "run", "postman_collection.json"]
-
-
+# Set newman as the default container command
+ENTRYPOINT ["newman"]
 
 
