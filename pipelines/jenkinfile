@@ -17,6 +17,8 @@ pipeline {
         stage('run postman with docker'){
             steps{
                 sh "ls -l"
+                sh "docker pull postman/newman"
+                sh "docker run -t postman/newman run postman_collection.json"
             }
         }
          /*
