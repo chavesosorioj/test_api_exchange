@@ -6,7 +6,9 @@ properties([
 ])
 
 pipeline {
-    agent none
+    agent {
+        docker { image 'postman/newman'}
+    }
     stages {
         stage('dir folder') {
             steps {
@@ -14,9 +16,6 @@ pipeline {
             }
         }
         stage('run postman with docker'){
-            agent {
-                docker { image 'postman/newman'}
-            }
             steps{
                 sh "ls -l"
                 sh "node --version"
