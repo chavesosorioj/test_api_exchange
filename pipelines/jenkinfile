@@ -6,7 +6,7 @@ properties([
 ])
 
 pipeline {
-
+    agent any
     stages {
         stage('dir folder') {
             steps {
