@@ -8,15 +8,15 @@ properties([
 pipeline {
     agent none
     stages {
-        agent {
-            docker { image 'postman/newman'}
-        }
         stage('dir folder') {
             steps {
                sh "ls '${params.dir}'"
             }
         }
         stage('run postman with docker'){
+            agent {
+                docker { image 'postman/newman'}
+            }
             steps{
                 sh "ls -l"
                 sh "node --version"
