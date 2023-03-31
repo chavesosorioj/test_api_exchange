@@ -7,4 +7,7 @@ services:
         build:
             context: ./
             dockerfile: dockerfile.yml
+        ports:
+            - 3000:3050
+
 
