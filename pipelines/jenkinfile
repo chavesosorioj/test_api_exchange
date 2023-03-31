@@ -14,10 +14,9 @@ pipeline {
                sh "ls '${params.dir}'"
             }
         }
-        stage(run postman with docker){
+        stage('run postman with docker'){
             steps{
                 sh "ls -l"
-                sh ""
             }
         }
          /*
