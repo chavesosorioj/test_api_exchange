@@ -1,0 +1,12 @@
+version: '2.15.1'
+
+services:
+    postman:
+        image: postman/newman:alpine
+        container_name: exchangeAPITest
+        command:
+            run postman_collection.json -k
+            -r cli,json
+            --reporter-json-export="reports/exchangeAPITest.json"
+        volumes:
+            - ./:/etc/newman
