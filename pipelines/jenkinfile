@@ -20,8 +20,8 @@ pipeline {
                         sudo brew services start docker
                         docker --version
                         export DOCKER_CLI_EXPERIMENTAL=enable
-                        fi
-                        '''
+                    fi
+                    '''
                 }
             }
         }
