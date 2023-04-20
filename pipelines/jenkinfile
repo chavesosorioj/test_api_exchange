@@ -11,16 +11,16 @@ pipeline {
         stage("Install Docker") {
             steps {
                 script {
+                    sh '''
                         if [ -x "$(command -v docker)" ]; then
-                            sh 'docker --version'
+                            docker --version
                         else
-                         //   sh ' /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" '
-                            sh 'sudo brew install docker'
-                            sh 'sudo brew services start docker'
-                            sh 'docker --version'
-                            sh 'export DOCKER_CLI_EXPERIMENTAL=enable'
+                            sudo brew install docker
+                            sudo brew services start docker
+                            docker --version
+                            export DOCKER_CLI_EXPERIMENTAL=enable
                         fi
-
+                    '''
                 }
             }
         }
@@ -28,6 +28,7 @@ pipeline {
 
  }
     /*
+     //sh ' /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" '
         stage('dir folder') {
             steps {
                sh "docker --version"
