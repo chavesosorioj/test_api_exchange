@@ -7,23 +7,26 @@ properties([
 
 pipeline {
     agent any
-    stage("Install Docker") {
-        steps {
-            script {
-                sh '''
-                if [ -x "$(command -v docker)" ]; then
-                    docker --version
-                else
-                    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-                    brew install docker
-                    brew services start docker
-                    docker --version
-                    export DOCKER_CLI_EXPERIMENTAL=enable
-                    fi
-                    '''
+    stages{
+        stage("Install Docker") {
+            steps {
+                script {
+                    sh '''
+                    if [ -x "$(command -v docker)" ]; then
+                        docker --version
+                    else
+                        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+                        brew install docker
+                        brew services start docker
+                        docker --version
+                        export DOCKER_CLI_EXPERIMENTAL=enable
+                        fi
+                        '''
+                }
             }
         }
     }
+
  }
     /*
         stage('dir folder') {
