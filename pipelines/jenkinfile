@@ -15,7 +15,7 @@ pipeline {
                         if [ -x "$(command -v docker)" ]; then
                             sh 'docker --version'
                         else
-                            sh ' /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" '
+                            //sh ' /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" '
                             sh 'sudo brew install docker'
                             sh 'sudo brew services start docker'
                             sh 'docker --version'
